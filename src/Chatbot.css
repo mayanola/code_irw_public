@@ -1,0 +1,195 @@
+/* message interface animation */
+@keyframes slideInUp {
+    from {
+        transform: translate(0%, 0%) scale(0.9); /* Start from the bottom right and scale down */
+        opacity: 0;
+    }
+    to {
+        transform: translate(0, 0) scale(1); /* End at the normal position with full scale */
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutBottomRight {
+    from {
+        transform: translate(0, 0) scale(1); /* Start from the normal position with full scale */
+        opacity: 1;
+    }
+    to {
+        transform: translate(50%, 50%) scale(0.9); /* End at the bottom right and scale down */
+        opacity: 0;
+    }
+}
+
+/* Message Sending Animation */
+@keyframes popIn {
+    0% {
+        transform: scale(0.9); /* Slightly smaller */
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.05); /* Slightly larger for the pop effect */
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1); /* Normal size */
+        opacity: 1;
+    }
+}
+
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: white;
+    border: 1px solid #1e8cc7;
+    max-height: 600px; /* Height when expanded */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: slideInUp 0.5s ease-in-out;
+    overflow: auto;
+}
+
+.chatbot-container.expanded {
+    width: 500px; /* Width when expanded */
+    max-height: 600px; /* Height when expanded */
+    overflow: auto;
+}
+
+.chatbot-header {
+    background-color: #28b362;
+    color: white;
+    position: sticky;
+    top: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.expand-toggle {
+    margin-left: 10px;
+    padding: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.h4 {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: small;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.chatbot-header button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #28b362;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chatbot-body {
+    max-height: 300px;
+    max-height: calc(100% - 80px); /* Adjust height based on header/footer size */
+
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.chatbot-footer {
+    display: flex;
+    padding: 10px;
+}
+
+.chatbot-footer input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #28b362;
+    color: #186f3c;
+    border-radius: 5px;
+}
+
+.chatbot-footer input::placeholder {
+    color: #28b362;
+}
+
+.chatbot-footer button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    background-color: #28b362;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chatbot-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    animation: fadeIn 0.3s ease-in-out;
+    white-space: pre-wrap; /* Maintains line breaks and whitespace */
+    word-wrap: break-word; /* Ensures long words or URLs break properly */
+}
+
+.chatbot-message.user {
+    background-color: #28b362;
+    color: rgba(255, 255, 255, 0.845);
+    align-self: flex-end;
+    width: 40%;
+    margin-left: auto;
+    animation: popIn 0.3s ease-out; 
+}
+
+.chatbot-message.bot {
+    background-color: #186f3c;
+    color: rgba(255, 255, 255, 0.845);
+    align-self: flex-start;
+    width: 80%;
+    animation: popIn 0.3s ease-out;
+}
+
+/* Loading dots animation */
+.chatbot-message.bot.loading:after {
+    content: " ";
+    display: inline-block;
+    width: 0.4em;
+    height: 0.4em;
+    margin-left: 0%;
+    margin-top: 5px;
+    border-radius: 50%;
+    background-color: #ffffffb9;
+    box-shadow: 0.3em 0 0 0 #fff, 0.7em 0 0 0 #fff; 
+    animation: loading-dots 1s infinite steps(3, end);
+}
+
+@keyframes loading-dots {
+    0% {
+        box-shadow: 1.5em 0 0 0 #fff, 3em 0 0 0 #fff;
+    }
+    25% {
+        box-shadow: 1.5em 0 0 0 #fff, 3em 0 0 0 transparent;
+    }
+    50% {
+        box-shadow: 1.5em 0 0 0 transparent, 3em 0 0 0 transparent;
+    }
+    75% {
+        box-shadow: 1.5em 0 0 0 transparent, 3em 0 0 0 #fff;
+    }
+    100% {
+        box-shadow: 1.5em 0 0 0 #fff, 3em 0 0 0 #fff;
+    }
+}
